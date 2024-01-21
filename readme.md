@@ -10,6 +10,6 @@
 4. Фреймворки и библиотеки: express, mongoose
 
 ## Ссылка на GitHub Pages:
-
+https://github.com/zmdog/mesto-13
 
 ### Спасибо за внимание!
