@@ -1,17 +1,31 @@
+const ERROR_VALIDATION = 400;
+const ERROR_CAST = 404;
+const ERROR_DEFAULT = 505;
 class ApiError extends Error {
-
-  errorCodeGetter(err) {
-    if (err.name === 'ValidationError') return 400 //переданы некорректные данные в методы создания или изменения
-    if (err.name === 'CastError') return 404 //не найден пользователь или карточка
-    return 505 //стандартная ошибка
-  }
-
-  instanceOf(res, err, message){
-    console.log(err.name)
-    return res.status(this.errorCodeGetter(err)).send({ message: message})
+  instanceOf(res, err) {
+    if (err.name === 'ValidationError') {
+      return res.status(ERROR_VALIDATION)
+        .send(
+          {
+            message: 'переданы некорректные данные в методы создания карточки, пользователя, обновления аватара пользователя или профиля',
+          },
+        );
+    }
+    if (err.name === 'CastError') {
+      return res.status(ERROR_CAST)
+        .send(
+          {
+            message: 'карточка или пользователь не найден или был запрошен несуществующий роут',
+          },
+        );
+    }
+    return res.status(ERROR_DEFAULT)
+      .send(
+        {
+          message: 'На сервере произошла ошибка',
+        },
+      );
   }
 }
 
-module.exports = {
-  ApiError
-}
+module.exports = { ApiError };
