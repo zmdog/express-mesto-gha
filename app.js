@@ -18,10 +18,9 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect('mongodb://localhost:27017/mestodb')
-  .then(() => console.log('база подключена'));
+mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.use('/', cards);
 app.use('/', users);
 
-app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
+app.listen(PORT);
