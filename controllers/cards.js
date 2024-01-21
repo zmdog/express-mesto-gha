@@ -7,8 +7,8 @@ const error = new ApiError();
 module.exports.deleteCardById = (req, res) => {
   Card.findOneAndDelete({ _id: req.params.cardId })
     .then((card) => {
-      if(!card) throw new error.instanceOf(res, {name: 'TypeError'})
-      res.send({data: card})
+      if (!card) throw new ApiError().instanceOf(res, { name: 'TypeError' });
+      res.send({ data: card });
     })
     .catch((err) => error.instanceOf(res, err));
 };
@@ -35,16 +35,16 @@ module.exports.getCards = (req, res) => {
 module.exports.likeCard = (req, res) => {
   Card.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: req.user._id } }, { new: true })
     .then((card) => {
-      if(!card) throw new error.instanceOf(res, {name: 'TypeError'})
-      res.send({data: card})
+      if (!card) throw new ApiError().instanceOf(res, { name: 'TypeError' });
+      res.send({ data: card });
     })
     .catch((err) => error.instanceOf(res, err));
 };
 module.exports.dislikeCard = (req, res) => {
   Card.findByIdAndUpdate(req.params.cardId, { $pull: { likes: req.user._id } }, { new: true })
     .then((card) => {
-      if(!card) throw new error.instanceOf(res, {name: 'TypeError'})
-      res.send({data: card})
+      if (!card) throw new ApiError().instanceOf(res, { name: 'TypeError' });
+      res.send({ data: card });
     })
     .catch((err) => error.instanceOf(res, err));
 };

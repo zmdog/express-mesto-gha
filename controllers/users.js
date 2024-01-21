@@ -7,8 +7,8 @@ const error = new ApiError();
 module.exports.getUserById = (req, res) => {
   User.findById(req.params.userId)
     .then((user) => {
-      if(!user) throw new error.instanceOf(res, {name: 'TypeError'})
-      res.send({data: user})
+      if (!user) throw new ApiError().instanceOf(res, { name: 'TypeError' });
+      res.send({ data: user });
     })
     .catch((err) => error.instanceOf(res, err));
 };
@@ -36,12 +36,12 @@ module.exports.patchUser = (req, res) => {
     data,
     {
       runValidators: true,
-      new: true
-    }
+      new: true,
+    },
   )
     .then((user) => {
-      if(!user) throw new error.instanceOf(res, {name: 'ValidationError'})
-      res.send({data: user})
+      if (!user) throw new ApiError().instanceOf(res, { name: 'ValidationError' });
+      res.send({ data: user });
     })
     .catch((err) => error.instanceOf(res, err));
 };

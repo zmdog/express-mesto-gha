@@ -1,6 +1,6 @@
 const ERROR_VALIDATION = 400;
 const ERROR_CAST = 400;
-const ERROR_TYPE= 404;
+const ERROR_TYPE = 404;
 const ERROR_DEFAULT = 505;
 class ApiError extends Error {
   constructor() {
