@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cards = require('./routes/cards');
 const users = require('./routes/users');
-/*const { ApiError } = require('./validaty/ApiError');*/
+/* const { ApiError } = require('./validaty/ApiError'); */
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -18,9 +18,9 @@ app.use((req, res, next) => {
 
   next();
 });
-/*app.use('*', (req, res) => {
+/* app.use('*', (req, res) => {
   new ApiError().instanceOf(res, { name: 'TypeError' });
-});*/
+}); */
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
