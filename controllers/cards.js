@@ -1,5 +1,5 @@
 const Card = require('../models/card');
-const {ApiError} = require('../validaty/ApiError');
+const { ApiError } = require('../validaty/ApiError');
 
 const error = new ApiError();
 

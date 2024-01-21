@@ -4,7 +4,7 @@ const ERROR_DEFAULT = 505;
 class ApiError extends Error {
   constructor() {
     super();
-    this.instanceOf = (res,err) => {
+    this.instanceOf = (res, err) => {
       if (err.name === 'ValidationError') {
         return res.status(ERROR_VALIDATION)
           .send(
@@ -27,7 +27,7 @@ class ApiError extends Error {
             message: 'На сервере произошла ошибка',
           },
         );
-    }
+    };
   }
 }
 
