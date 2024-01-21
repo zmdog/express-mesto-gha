@@ -1,5 +1,6 @@
 const ERROR_VALIDATION = 400;
 const ERROR_CAST = 400;
+const ERROR_TYPE= 404;
 const ERROR_DEFAULT = 505;
 class ApiError extends Error {
   constructor() {
@@ -10,6 +11,14 @@ class ApiError extends Error {
           .send(
             {
               message: 'переданы некорректные данные в методы создания карточки, пользователя, обновления аватара пользователя или профиля',
+            },
+          );
+      }
+      if (err.name === 'TypeError') {
+        return res.status(ERROR_TYPE)
+          .send(
+            {
+              message: 'попытка получить пользователя с несуществующим в БД id',
             },
           );
       }

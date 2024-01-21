@@ -6,7 +6,10 @@ const error = new ApiError();
 // Удалить карточку
 module.exports.deleteCardById = (req, res) => {
   Card.findOneAndDelete({ _id: req.params.cardId })
-    .then((card) => res.send({ data: card }))
+    .then((card) => {
+      if(!card) throw new error.instanceOf(res, {name: 'TypeError'})
+      res.send({data: card})
+    })
     .catch((err) => error.instanceOf(res, err));
 };
 // Создать карточку
@@ -31,11 +34,17 @@ module.exports.getCards = (req, res) => {
 // Лайки карточки
 module.exports.likeCard = (req, res) => {
   Card.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: req.user._id } }, { new: true })
-    .then((card) => res.send({ data: card }))
+    .then((card) => {
+      if(!card) throw new error.instanceOf(res, {name: 'TypeError'})
+      res.send({data: card})
+    })
     .catch((err) => error.instanceOf(res, err));
 };
 module.exports.dislikeCard = (req, res) => {
   Card.findByIdAndUpdate(req.params.cardId, { $pull: { likes: req.user._id } }, { new: true })
-    .then((card) => res.send({ data: card }))
+    .then((card) => {
+      if(!card) throw new error.instanceOf(res, {name: 'TypeError'})
+      res.send({data: card})
+    })
     .catch((err) => error.instanceOf(res, err));
 };

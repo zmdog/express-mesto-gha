@@ -6,7 +6,10 @@ const error = new ApiError();
 // получение пользователя
 module.exports.getUserById = (req, res) => {
   User.findById(req.params.userId)
-    .then((user) => res.send({ data: user }))
+    .then((user) => {
+      if(!user) throw new error.instanceOf(res, {name: 'TypeError'})
+      res.send({data: user})
+    })
     .catch((err) => error.instanceOf(res, err));
 };
 // получение пользователей
@@ -31,9 +34,15 @@ module.exports.patchUser = (req, res) => {
   User.findByIdAndUpdate(
     _id,
     data,
-    { new: true },
+    {
+      runValidators: true,
+      new: true
+    }
   )
-    .then((user) => res.send({ data: user }))
+    .then((user) => {
+      if(!user) throw new error.instanceOf(res, {name: 'ValidationError'})
+      res.send({data: user})
+    })
     .catch((err) => error.instanceOf(res, err));
 };
 // изменение аватара пользователя
